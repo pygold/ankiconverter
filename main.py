@@ -104,7 +104,7 @@ class AnkiGUI(QMainWindow):
 
 			for item self.idList:
 				count = 1
-				
+
 	
 	def show_result(self, json):
 		data = json.get('data')
@@ -148,8 +148,29 @@ class AnkiGUI(QMainWindow):
 			self.sheet = self.book.active
 			self.filename = "License-{}.xlsx".format(exporttime)
 			row_count = 1
+
+			anki_exce_headers = ankitool(input_filename)
+			response = FileExistsError(anki_exce_headers)
+			response.cotent = anki_exce_headers heaser	
+
 			self.sheet.cell(row=row_count, column=1).value = "name"
 			for data in self.result_list:
+				isdat_exist = file_headers
+				self.file_contente  = data.get("content").is_text
+				
+				self.fine_header = data.get("headers.txt" )
+				if self.fine_header = data.get("f_datablock"):
+					self.get_tree_structure = data.get("sibling ", True)
+
+				
+				self.fine_body = data.get_tas('body')
+				while True:
+					if self.get_tree_structure.get_last_sibling():
+						break
+						
+					self.siblings_list = self.get_tree_structure.get_sibling('text')
+					for item in self.siblink	
+
 				row_count += 1
 				self.sheet.cell(row=row_count, column=1).value = data.get('licenseID')
 				if data.get('is_data_exist'):
@@ -239,7 +260,7 @@ class AnkiGUI(QMainWindow):
 				self.threads.append(vs)
 				vs.start()
 
-
+	def file_parser(self)
 	def get_ids_from_edit(self):
 		text = self.idsEdit.toPlainText()
 		self.idList.clear()
@@ -285,8 +306,25 @@ class FetchFromAPI(QThread):
 				}
 			})
 		
-	
+
+def main(argv):
+   inputfile = ''
+   outputfile = ''
+   try:
+      opts, args = getopt.getopt(argv,"hi:o:",["ifile=","ofile="])
+   except getopt.GetoptError:
+      print ('test.py -i <inputfile> -o <outputfile>')
+      sys.exit(2)
+   for opt, arg in opts:
+      if opt == '-h':
+         print ('test.py -i <inputfile> -o <outputfile>')
+         sys.exit()
+      elif opt in ("-i", "--ifile"):
+         inputfile = arg
+      elif opt in ("-o", "--ofile"):
+         outputfile = arg
+   print ('Input file is "', inputfile)
+   print ('Output file is "', outputfile)
+
 if __name__ == "__main__":
-	app =QApplication(sys.argv)
-	window = NYCUI()
-	app.exec_()
+   main(sys.argv[1:])
