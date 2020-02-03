@@ -3,7 +3,9 @@ import os
 import json
 import AnkiTools
 from AnkiTools import anki_convert
-from PyQt5 import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 class AnkiConverter(QThread):
 	def __init__(self, filename):
@@ -35,10 +37,11 @@ class Fetch(QThread):
 						"errorText" : "Exceed Max requests {} Retry again".format(repr(e))
 					} 
 				}
+			})
 
 if __name__ == "__main__":
-	input_filename = "test.apkg"
-	output_filename = "test.xlsx"
+	input_filename = "data/test.apkg"
+	output_filename = "data/test.xlsx"
 	anki_convert(input_filename, out_file=output_filename)
 	# anki_convert('my_workbook.xlsx', out_format='.apkg')
 
