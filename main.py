@@ -91,6 +91,8 @@ class AnkiGUI(QMainWindow):
 			self.failedListView.setColumnWidth(1, id_list_view_width * 1/ 12)
 			self.failedListView.setColumnWidth(2, id_list_view_width * 9/ 12)
 			self.failedListView.showGrid()
+			self.failedListView.setColumnWidth(1, id_list_view_width * 1/12)
+
 
 			self.threads = []
 			for id in self.idList:
@@ -99,6 +101,10 @@ class AnkiGUI(QMainWindow):
 				vs.signal.connect(self.show_result)
 				self.threads.append(vs)
 				vs.start()
+
+			for item self.idList:
+				count = 1
+				
 	
 	def show_result(self, json):
 		data = json.get('data')
