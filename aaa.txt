@@ -1,0 +1,85 @@
+
+card_id
+note_id
+deck_name
+template_order
+1542912872799
+How I Met Your Mother S1E1
+[sound:How_I_Met_Your_Mother_S1E1_0.00.04.145-0.00.07.022.mp3]
+[sound:How_I_Met_Your_Mother_S1E1_0.00.04.145-0.00.07.022.mp4]
+1542912872800
+How I Met Your Mother S1E1
+[sound:How_I_Met_Your_Mother_S1E1_0.00.07.049-0.00.09.559.mp3]
+[sound:How_I_Met_Your_Mother_S1E1_0.00.07.049-0.00.09.559.mp4]
+1542912872801
+How I Met Your Mother S1E1
+[sound:How_I_Met_Your_Mother_S1E1_0.00.09.886-0.00.11.460.mp3]
+[sound:How_I_Met_Your_Mother_S1E1_0.00.09.886-0.00.11.460.mp4]
+1542912872802
+How I Met Your Mother S1E1
+[sound:How_I_Met_Your_Mother_S1E1_0.00.12.655-0.00.14.296.mp3]
+[sound:How_I_Met_Your_Mother_S1E1_0.00.12.655-0.00.14.296.mp4]
+1542912872803
+How I Met Your Mother S1E1
+[sound:How_I_Met_Your_Mother_S1E1_0.00.14.423-0.00.20.539.mp3]
+[sound:How_I_Met_Your_Mother_S1E1_0.00.14.423-0.00.20.539.mp4]
+1542912872804
+How I Met Your Mother S1E1
+[sound:How_I_Met_Your_Mother_S1E1_0.00.23.766-0.00.32.751.mp3]
+[sound:How_I_Met_Your_Mother_S1E1_0.00.23.766-0.00.32.751.mp4]
+1542912872805
+How I Met Your Mother S1E1
+[sound:How_I_Met_Your_Mother_S1E1_0.00.32.908-0.00.36.785.mp3]
+[sound:How_I_Met_Your_Mother_S1E1_0.00.32.908-0.00.36.785.mp4]
+1542912872806
+How I Met Your Mother S1E1
+[sound:How_I_Met_Your_Mother_S1E1_0.00.36.812-0.00.42.975.mp3]
+[sound:How_I_Met_Your_Mother_S1E1_0.00.36.812-0.00.42.975.mp4]
+1542912872807
+How I Met Your Mother S1E1
+[sound:How_I_Met_Your_Mother_S1E1_0.00.42.952-0.00.46.362.mp3]
+[sound:How_I_Met_Your_Mother_S1E1_0.00.42.952-0.00.46.362.mp4]
+1542912872808
+How I Met Your Mother S1E1
+[sound:How_I_Met_Your_Mother_S1E1_0.00.46.689-0.00.48.130.mp3]
+[sound:How_I_Met_Your_Mother_S1E1_0.00.46.689-0.00.48.130.mp4]
+1547744233806
+Friends S1E1
+[sound:Friends_S1E1_0.00.49.941-0.00.53.010_1547690898675.mp3]
+[sound:Friends_S1E1_0.00.49.941-0.00.53.010_1547690898675.mp4]
+1547744233807
+Friends S1E1
+[sound:Friends_S1E1_0.00.52.944-0.00.55.354.mp3]
+[sound:Friends_S1E1_0.00.52.944-0.00.55.354.mp4]
+1547744233808
+Friends S1E1
+[sound:Friends_S1E1_0.00.55.380-0.00.58.068.mp3]
+[sound:Friends_S1E1_0.00.55.380-0.00.58.068.mp4]
+1547744233809
+Friends S1E1
+[sound:Friends_S1E1_0.00.58.033-0.01.00.283_1547690898675.mp3]
+[sound:Friends_S1E1_0.00.58.033-0.01.00.283_1547690898675.mp4]
+1547744233810
+Friends S1E1
+[sound:Friends_S1E1_0.01.02.370-0.01.04.021_1547690898675.mp3]
+[sound:Friends_S1E1_0.01.02.370-0.01.04.021_1547690898675.mp4]
+1547744233811
+Friends S1E1
+[sound:Friends_S1E1_0.01.04.898-0.01.08.383_1547690898675.mp3]
+[sound:Friends_S1E1_0.01.04.898-0.01.08.383_1547690898675.mp4]
+1547744233812
+Friends S1E1
+[sound:Friends_S1E1_0.01.08.418-0.01.11.386_1547690898675.mp3]
+[sound:Friends_S1E1_0.01.08.418-0.01.11.386_1547690898675.mp4]
+1547744233813
+Friends S1E1
+[sound:Friends_S1E1_0.01.11.321-0.01.14.556_1547690898675.mp3]
+[sound:Friends_S1E1_0.01.11.321-0.01.14.556_1547690898675.mp4]
+1547744233814
+Friends S1E1
+[sound:Friends_S1E1_0.01.14.591-0.01.16.408_1547690898675.mp3]
+[sound:Friends_S1E1_0.01.14.591-0.01.16.408_1547690898675.mp4]
+1547744233815
+Friends S1E1
+[sound:Friends_S1E1_0.01.19.012-0.01.22.167.mp3]
+[sound:Friends_S1E1_0.01.19.012-0.01.22.167.mp4]
