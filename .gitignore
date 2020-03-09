@@ -1,2 +1,4 @@
 anki-venv/
 .vscode/
+media/
+__pycache__/

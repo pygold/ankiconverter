@@ -1,0 +1,236 @@
+{
+    "1525335138106": {
+        "css": ".card {\n font-family: arial;\n font-size: 20px;\n text-align: center;\n color: black;\n background-color: white;\n}\n",
+        "name": "Basic-4edb3",
+        "flds": [
+            {
+                "sticky": false,
+                "font": "Arial",
+                "media": [],
+                "name": "Front",
+                "rtl": false,
+                "ord": 0,
+                "size": 20
+            },
+            {
+                "sticky": false,
+                "font": "Arial",
+                "media": [],
+                "name": "Back",
+                "rtl": false,
+                "ord": 1,
+                "size": 20
+            }
+        ],
+        "vers": [],
+        "type": 0,
+        "usn": -1,
+        "latexPre": "\\documentclass[12pt]{article}\n\\special{papersize=3in,5in}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amssymb,amsmath}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0in}\n\\begin{document}\n",
+        "id": 1525335138106,
+        "req": [
+            [
+                0,
+                "all",
+                [
+                    0
+                ]
+            ]
+        ],
+        "tmpls": [
+            {
+                "bafmt": "",
+                "bqfmt": "",
+                "qfmt": "{{Front}}\n\n<span class=\"timer\" id=\"s2\" style='font-size:16px; color: #A6ABB9;'></span>\n<script>\nfunction countdown( elementName, minutes, seconds )\n{\n    var element, endTime, hours, mins, msLeft, time;\n    function twoDigits( n )\n    {\n        return (n <= 9 ? \"0\" + n : n); \n    }\n    function updateTimer()\n    {\n        msLeft = endTime - (+new Date);\n        if ( msLeft < 1000 ) {\n            element.innerHTML = \"<span style='color:#CC5B5B'>TIME</span>\";\n        } else {\n            time = new Date( msLeft );\n            hours = time.getUTCHours();\n            mins = time.getUTCMinutes();\n            element.innerHTML = (hours ? hours + ':' + twoDigits( mins ) : mins) + ':' + twoDigits( time.getUTCSeconds() );\n            setTimeout( updateTimer, time.getUTCMilliseconds() + 500 );\n        }\n    }\n    element = document.getElementById( elementName );\n    endTime = (+new Date) + 1000 * (60*minutes + seconds) + 500;\n    updateTimer();\n}\ncountdown(\"s2\", 0, 80 ); //2nd value is the minute, 3rd is the seconds\n</script>",
+                "afmt": "{{FrontSide}}\n\n<hr id=answer>\n\n{{Back}}\n\n\n<span class=\"timer\" id=\"s2\" style='font-size:16px; color: #A6ABB9;'></span>\n<script>\nfunction countdown( elementName, minutes, seconds )\n{\n    var element, endTime, hours, mins, msLeft, time;\n    function twoDigits( n )\n    {\n        return (n <= 9 ? \"0\" + n : n); \n    }\n    function updateTimer()\n    {\n        msLeft = endTime - (+new Date);\n        if ( msLeft < 1000 ) {\n            element.innerHTML = \"<span style='color:#CC5B5B'>TIME</span>\";\n        } else {\n            time = new Date( msLeft );\n            hours = time.getUTCHours();\n            mins = time.getUTCMinutes();\n            element.innerHTML = (hours ? hours + ':' + twoDigits( mins ) : mins) + ':' + twoDigits( time.getUTCSeconds() );\n            setTimeout( updateTimer, time.getUTCMilliseconds() + 500 );\n        }\n    }\n    element = document.getElementById( elementName );\n    endTime = (+new Date) + 1000 * (60*minutes + seconds) + 500;\n    updateTimer();\n}\ncountdown(\"s2\", 0, 40 ); //2nd value is the minute, 3rd is the seconds\n</script>",
+                "name": "Card 1",
+                "ord": 0,
+                "did": null
+            }
+        ],
+        "mod": 1568131411,
+        "did": 1562512731699,
+        "tags": [],
+        "latexPost": "\\end{document}",
+        "sortf": 0
+    },
+    "1525335138097": {
+        "did": 1562512731699,
+        "sortf": 0,
+        "flds": [
+            {
+                "sticky": false,
+                "size": 20,
+                "media": [],
+                "name": "Text",
+                "rtl": false,
+                "ord": 0,
+                "font": "Arial"
+            },
+            {
+                "sticky": false,
+                "size": 20,
+                "media": [],
+                "name": "Extra",
+                "rtl": false,
+                "ord": 1,
+                "font": "Arial"
+            }
+        ],
+        "vers": [],
+        "type": 1,
+        "usn": -1,
+        "latexPre": "\\documentclass[12pt]{article}\n\\special{papersize=3in,5in}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amssymb,amsmath}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0in}\n\\begin{document}\n",
+        "id": 1525335138097,
+        "name": "Cloze-30090",
+        "tmpls": [
+            {
+                "bafmt": "",
+                "bqfmt": "",
+                "qfmt": "{{cloze:Text}}",
+                "afmt": "{{cloze:Text}}<br>\n{{Extra}}",
+                "name": "Cloze",
+                "ord": 0,
+                "did": null
+            }
+        ],
+        "mod": 1568131909,
+        "css": ".card {\n font-family: arial;\n font-size: 20px;\n text-align: center;\n color: black;\n background-color: white;\n}\n\n.cloze {\n font-weight: normal;\n color: blue;\n}",
+        "tags": [],
+        "latexPost": "\\end{document}"
+    },
+    "1513797419385": {
+        "css": "/* GENERAL CARD STYLE */\n.card {\n  font-family: \"Helvetica LT Std\", Helvetica, Arial, Sans;\n  font-size: 150%;\n  text-align: center;\n  color: black;\n  background-color: white;\n}\n\n/* OCCLUSION CSS START - don't edit this */\n#io-overlay {\n  position:absolute;\n  top:0;\n  width:100%;\n  z-index:3\n}\n\n#io-original {\n  position:relative;\n  top:0;\n  width:100%;\n  z-index:2\n}\n\n#io-wrapper {\n  position:relative;\n  width: 100%;\n}\n/* OCCLUSION CSS END */\n\n/* OTHER STYLES */\n#io-header{\n  font-size: 1.1em;\n  margin-bottom: 0.2em;\n}\n\n#io-footer{\n  max-width: 80%;\n  margin-left: auto;\n  margin-right: auto;\n  margin-top: 0.8em;\n  font-style: italic;\n}\n\n\n#io-extra-wrapper{\n  /* the wrapper is needed to center the\n  left-aligned blocks below it */\n  width: 80%;\n  margin-left: auto;\n  margin-right: auto;\n  margin-top: 0.5em;\n}\n\n#io-extra{\n  text-align:center;\n  display: inline-block;\n}\n\n.io-extra-entry{\n  margin-top: 0.8em;\n  font-size: 0.9em;\n  text-align:left;\n}\n\n.io-field-descr{\n  margin-bottom: 0.2em;\n  font-weight: bold;\n  font-size: 1em;\n}\n\n#io-revl-btn {\n  font-size: 0.5em;\n}\n\n/* ADJUSTMENTS FOR MOBILE DEVICES */\n\n.mobile .card, .mobile #content {\n  font-size: 120%;\n  margin: 0;\n}\n\n.mobile #io-extra-wrapper {\n  width: 95%;\n}\n\n.mobile #io-revl-btn {\n  font-size: 0.8em;\n}\n",
+        "mod": 1548759018,
+        "flds": [
+            {
+                "sticky": false,
+                "font": "Arial",
+                "media": [],
+                "name": "ID (hidden)",
+                "rtl": false,
+                "ord": 0,
+                "size": 20
+            },
+            {
+                "sticky": false,
+                "font": "Arial",
+                "media": [],
+                "name": "Header",
+                "rtl": false,
+                "ord": 1,
+                "size": 20
+            },
+            {
+                "sticky": false,
+                "font": "Arial",
+                "media": [],
+                "name": "Image",
+                "rtl": false,
+                "ord": 2,
+                "size": 20
+            },
+            {
+                "sticky": false,
+                "font": "Arial",
+                "media": [],
+                "name": "Question Mask",
+                "rtl": false,
+                "ord": 3,
+                "size": 20
+            },
+            {
+                "sticky": false,
+                "font": "Arial",
+                "media": [],
+                "name": "Footer",
+                "rtl": false,
+                "ord": 4,
+                "size": 20
+            },
+            {
+                "sticky": false,
+                "font": "Arial",
+                "media": [],
+                "name": "Remarks",
+                "rtl": false,
+                "ord": 5,
+                "size": 20
+            },
+            {
+                "sticky": false,
+                "font": "Arial",
+                "media": [],
+                "name": "Sources",
+                "rtl": false,
+                "ord": 6,
+                "size": 20
+            },
+            {
+                "sticky": false,
+                "font": "Arial",
+                "media": [],
+                "name": "Extra 1",
+                "rtl": false,
+                "ord": 7,
+                "size": 20
+            },
+            {
+                "sticky": false,
+                "font": "Arial",
+                "media": [],
+                "name": "Extra 2",
+                "rtl": false,
+                "ord": 8,
+                "size": 20
+            },
+            {
+                "sticky": false,
+                "font": "Arial",
+                "media": [],
+                "name": "Answer Mask",
+                "rtl": false,
+                "ord": 9,
+                "size": 20
+            },
+            {
+                "sticky": false,
+                "font": "Arial",
+                "media": [],
+                "name": "Original Mask",
+                "rtl": false,
+                "ord": 10,
+                "size": 20
+            }
+        ],
+        "vers": [],
+        "type": 0,
+        "usn": -1,
+        "latexPre": "\\documentclass[12pt]{article}\n\\special{papersize=3in,5in}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amssymb,amsmath}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0in}\n\\begin{document}\n",
+        "id": 1513797419385,
+        "name": "Image Occlusion Enhanced-d6e0c",
+        "req": [
+            [
+                0,
+                "all",
+                [
+                    2
+                ]
+            ]
+        ],
+        "tmpls": [
+            {
+                "bafmt": "",
+                "bqfmt": "",
+                "qfmt": "{{#Image}}\n<div id=\"io-header\">{{Header}}</div>\n<div id=\"io-wrapper\">\n  <div id=\"io-overlay\">{{Question Mask}}</div>\n  <div id=\"io-original\">{{Image}}</div>\n</div>\n<div id=\"io-footer\">{{Footer}}</div>\n{{/Image}}\n",
+                "afmt": "{{#Image}}\n<script>\n  // Toggle answer mask on clicking the image\n  var toggle = function() {\n    var amask = document.getElementById('io-overlay');\n    if (amask.style.display === 'block' || amask.style.display === '')\n      amask.style.display = 'none';\n    else\n      amask.style.display = 'block'\n  }\n</script>\n<div id=\"io-header\">{{Header}}</div>\n<div id=\"io-wrapper\">\n  <div id=\"io-overlay\">{{Answer Mask}}</div>\n  <div id=\"io-original\">{{Image}}</div>\n</div>\n{{#Footer}}<div id=\"io-footer\">{{Footer}}</div>{{/Footer}}\n<button id=\"io-revl-btn\" onclick=\"toggle();\">Toggle Masks</button>\n<div id=\"io-extra-wrapper\">\n  <div id=\"io-extra\">\n    {{#Remarks}}\n      <div class=\"io-extra-entry\">\n        <div class=\"io-field-descr\">Remarks</div>{{Remarks}}\n      </div>\n    {{/Remarks}}\n    {{#Sources}}\n      <div class=\"io-extra-entry\">\n        <div class=\"io-field-descr\">Sources</div>{{Sources}}\n      </div>\n    {{/Sources}}\n    {{#Extra 1}}\n      <div class=\"io-extra-entry\">\n        <div class=\"io-field-descr\">Extra 1</div>{{Extra 1}}\n      </div>\n    {{/Extra 1}}\n    {{#Extra 2}}\n      <div class=\"io-extra-entry\">\n        <div class=\"io-field-descr\">Extra 2</div>{{Extra 2}}\n      </div>\n    {{/Extra 2}}\n  </div>\n</div>\n{{/Image}}\n",
+                "name": "IO Card",
+                "ord": 0,
+                "did": null
+            }
+        ],
+        "did": 1537530757384,
+        "tags": [],
+        "latexPost": "\\end{document}",
+        "sortf": 1
+    }
+}
