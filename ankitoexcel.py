@@ -40,7 +40,7 @@ class AnkiConverter():
 			return
 		except Exception as e:
 			print("[FAIL]", repr(e))
-			return
+			raise(e) #TODO
 		
 
 	def extract_apkg(self, inputfile):
@@ -78,13 +78,13 @@ class AnkiConverter():
 		try:
 			conn = sqlite3.connect(self.anki2_file_path)
 			c = conn.cursor()
-			create_tbl_query = """ SELECT id, guid, flds, sfld FROM notes"""
+			query = """ SELECT id, guid, flds, sfld, mid FROM notes"""
 		except Exception as e:
 			print("[FAIL]", repr(e))
 			raise(e)
 			
 		try:
-			c.execute(create_tbl_query)
+			c.execute(query)
 			rows = c.fetchall()
 			for row in rows:
 				data = {}
@@ -92,6 +92,7 @@ class AnkiConverter():
 				data.update({"guid" : row[1]})
 				data.update({"html" : row[2]})
 				data.update({"text" : row[3]})
+				data.update({"mid" : row[4]})
 				notes_list.append(data)
 		except Exception as e:
 			print("[FAIL]", repr(e))
@@ -100,6 +101,29 @@ class AnkiConverter():
 		conn.close()
 		return notes_list
 
+	def get_model_from_anki2(self):
+		model = {}
+		try:
+			conn = sqlite3.connect(self.anki2_file_path)
+			c = conn.cursor()
+			query = """ SELECT models FROM col"""
+
+		except Exception as e:
+			print("[FAIL]", repr(e))
+			raise(e)
+			
+		try:
+			c.execute(query)
+			rows = c.fetchone()
+			model = json.loads(rows[0], encoding="utf-8")
+		except Exception as e:
+			print("[FAIL]", repr(e))
+			raise(e)
+		c.close()
+		conn.close()
+		return model
+
+
 	def extract_to_excel(self, outputfile):
 
 		#Delete excel file
@@ -107,123 +131,135 @@ class AnkiConverter():
 			os.remove(outputfile)
 
 		note_lists = self.get_notes_from_anki2()
+		models = self.get_model_from_anki2()
 
 		anki_list = []
 		for note in note_lists:
-			
-			anki_item = {
-				"number" : "",
-				"parent_question_number": "",
-				"child_question_number": "",
-				"subject": "",
-				"chapter": "",
-				"qtype": "",
-				"question" : "",
-				"answer1": "",
-				"answer2": "",
-				"answer3": "",
-				"answer4": "",
-				"image": "",
-				"video": "",
-				"info": "",
-				"info_image": "",
-				"info_video": "",
-				"tag1": "",
-				"tag2": "",
-				"tag3": "",
-				"tag4": "",
-				"tag5": "",
-				"tag6": "",
-				"tag7": "",
-				"tag8": "",
-				"tag9": "",
-				"tag10": "",
-				"wrong1": "",
-				"wrong2": "",
-				"wrong3": "",
-				"time_limit": "",
-				"difficulty": "",
-				"is_demo": ""
-			}
-			note_text = note['html']
-			card_id = note['id']
-			#=======================EXTRACT QUESTION & ANSWER TEXT=================#
+			anki_item = self.get_anki_item(note, models)
+			anki_list.append(anki_item)
+
+		#============SAVE TO EXCEL==============#
+		anki_dataframe = pd.DataFrame(anki_list)
+		anki_dataframe.to_excel(self.outputfile, sheet_name="Quiz", index=None)
+		print('[SUCCESS]', "Successfully saved '{}'".format(self.outputfile))
+	
+
+	def get_anki_item(self, note, models):
+		
+		anki_item = {
+			"number" : "",
+			"parent_question_number": "",
+			"child_question_number": "",
+			"subject": "",
+			"chapter": "",
+			"qtype": "",
+			"question" : "",
+			"answer1": "",
+			"answer2": "",
+			"answer3": "",
+			"answer4": "",
+			"answer5": "",
+			"image": "",
+			"video": "",
+			"info": "",
+			"info_image": "",
+			"info_video": "",
+			"tag1": "",
+			"tag2": "",
+			"tag3": "",
+			"tag4": "",
+			"tag5": "",
+			"tag6": "",
+			"tag7": "",
+			"tag8": "",
+			"tag9": "",
+			"tag10": "",
+			"wrong1": "",
+			"wrong2": "",
+			"wrong3": "",
+			"time_limit": "",
+			"difficulty": "",
+			"is_demo": ""
+		}
+		note_text = note['html']
+		card_id = note['id']
+		model_id = str(note['mid'])
+		#=======================EXTRACT QUESTION & ANSWER TEXT=================#
+		subject = ""
+		question = ""
+		image = ""
+		video = ""
+		info_text = ""
+		info_image = ""
+		info_video = ""
+		answers = []
+
+		note_type =  models[model_id].get('type')
+		field_count = len(models[model_id].get('flds'))
+		
+		if note_type == 1:
+			question_text = note_text.split("")[0]
 			try:
-				subject = ""
-				question = ""
-				image = ""
-				video = ""
-				answers = []
-				
-				question_text = note_text.split("")[0]
-				try:
-					additional_info = note_text.split("")[1]
-				except:
-					additional_info = ""
-					
-				question_answer_text = saxutils.unescape(question_text)
-				question_answer_body = BS(question_answer_text, 'lxml').find('body')
-
-				try:
-					image = question_answer_body.find('img')['src']
-					question_answer_body.img.decompose()
-					if image:
-						image = self.upload_media_file(image)
-
-				except: image = ""
-
-				try:
-					video = question_answer_body.find('video')['src']
-					question_answer_body.video.decompose()
-					if video:
-						video = self.upload_media_file(video)
-				except: video = ""
-				
-				for answer in question_answer_body.find_all(text=re.compile("{{c1::")):
-					try:
-						# Remove from html tree and get content , error means duplicated
-						if "}}" in answer.parent.text:
-							answer.parent.replace_with('')
-							for item in answer.parent.text.split("}}"):
-								if item.strip():
-									#=============Remove {{..}}==========#
-									# answers.append(item + "}}")
-									answers.append(item.split("c1::")[1])
-						else:
-							parent = answer.parent
-							parent_next = answer.parent.find_next_sibling('div')
-							answer_text = answer.parent.text + " " + parent_next.text
-							#=============Remove {{..}}==========#
-							# answers.append(answer_text)
-							answers.append(answer_text.split("c1::")[1].split("}}"))
-							parent.replace_with('')
-							parent_next.replace_with('')
-						
-					except Exception as e:
-						continue
-				
-
-				question_answer_body_childrens = list(question_answer_body.stripped_strings)
-				
-				try:
-					subject = question_answer_body_childrens[0]
-				except Exception as e:
-					print("subject {} :".format(card_id), repr(e), question_answer_body_childrens)
-					subject = ""
-
-				try:
-					question = "".join(question_answer_body_childrens[1:])
-				except Exception as e:
-					question = ""
-					print("question {} :".format(card_id), repr(e), question_answer_body)
-
-			except Exception as e:
-				print(repr(e), card_id,  question_answer_body)
-				question_answer_text = ""
+				additional_info = note_text.split("")[1]
+			except:
+				additional_info = ""
 			
-			info_text = ""
-			info_image = ""
-			info_video = ""
+			question_answer_text = saxutils.unescape(question_text)
+			question_answer_body = BS(question_answer_text, 'lxml').find('body')
+
+			try:
+				image = question_answer_body.find('img')['src']
+				question_answer_body.img.decompose()
+				if image:
+					image = self.upload_media_file(image)
+
+			except: image = ""
+
+			try:
+				video = question_answer_body.find('video')['src']
+				question_answer_body.video.decompose()
+				if video:
+					video = self.upload_media_file(video)
+			except: video = ""
+			
+			for answer in question_answer_body.find_all(text=re.compile("{{c1::")):
+				try:
+					# Remove from html tree and get content , error means duplicated
+					if "}}" in answer.parent.text:
+						answer.parent.replace_with('')
+						for item in answer.split("}}"):
+							if item.strip():
+								#=============Remove {{..}}==========#
+								# answers.append(item + "}}")
+								answers.append(item.split("c1::")[1])
+					else:
+						parent = answer.parent
+						parent_next = answer.parent.find_next_sibling('div')
+						answer_text = answer.parent.text + " " + parent_next.text
+						#=============Remove {{..}}==========#
+						# answers.append(answer_text)
+						answers.append(answer_text.split("c1::")[1].split("}}"))
+						parent.replace_with('')
+						parent_next.replace_with('')
+					
+				except Exception as e:
+					continue
+			
+
+			question_answer_body_childrens = list(question_answer_body.stripped_strings)
+			
+			try:
+				subject = question_answer_body_childrens[0]
+			except Exception as e:
+				pass
+				# print("subject {} :".format(card_id), repr(e), question_answer_body_childrens)
+
+			try:
+				question = "".join(question_answer_body_childrens[1:])
+			except Exception as e:
+				pass
+				# print("question {} :".format(card_id), repr(e), question_answer_body)
+
 			try:
 				additional_body = BS(saxutils.unescape(additional_info), 'lxml')
 				try:
@@ -231,7 +267,6 @@ class AnkiConverter():
 					additional_body.img.decompose()
 					if info_image:
 						info_image = self.upload_media_file(info_image)
-
 				except:
 					info_image = ""
 
@@ -248,43 +283,109 @@ class AnkiConverter():
 			except Exception as e:
 				print(repr(e), additional_info)
 
-			#==============MAKE DATAFRAME============#
-			anki_item.update({"number" : card_id})
-			anki_item.update({"subject" : subject})
-			anki_item.update({"question" : question})
+		else:
+			if field_count == 2:
 
-			try: anki_item.update({"answer1" : answers[0]})
-			except: anki_item.update({"answer1" : ""})
+				question_text = note_text.split("")[0]
+				try:
+					answer_text = note_text.split("")[1]
+				except:
+					answer_text = ""
 
-			try: anki_item.update({"answer2" : answers[1]})
-			except: anki_item.update({"answer2" : ""})
+				question_answer_body = BS(saxutils.unescape(question_text), 'lxml').find('body')
+				answer_body = BS(saxutils.unescape(answer_text), 'lxml').find('body')
 
-			try: anki_item.update({"answer3" : answers[2]})
-			except: anki_item.update({"answer3" : ""})
+				try:
+					image = question_answer_body.find('img')['src']
+					question_answer_body.img.decompose()
+					if image:
+						image = self.upload_media_file(image)
 
-			try: anki_item.update({"answer4" : answers[3]})
-			except: anki_item.update({"answer4" : ""})
+				except: image = ""
 
-			anki_item.update({"image" : image})
-			anki_item.update({"video" : video})
-			anki_item.update({"info" : info_text})
-			anki_item.update({"info_image" : info_image})
-			anki_item.update({"info_video" : info_video})
+				try:
+					video = question_answer_body.find('video')['src']
+					question_answer_body.video.decompose()
+					if video:
+						video = self.upload_media_file(video)
+				except: video = ""
+			
+				if "___" in question_answer_body.text:
 
-			anki_list.append(anki_item)
+					question_answer_body_childrens = list(question_answer_body.stripped_strings)
+					try:
+						question = "".join(question_answer_body_childrens)
+					except Exception as e:
+						print("question {} :".format(card_id), repr(e), question_answer_body)
 
-		#============SAVE TO EXCEL==============#
-		anki_dataframe = pd.DataFrame(anki_list)
-		anki_dataframe.to_excel(self.outputfile, sheet_name="Quiz", index=None)
-		print('[SUCCESS]', "Successfully saved '{}'".format(self.outputfile))
-		
+				else:
+					question_answer_body_childrens = list(question_answer_body.stripped_strings)
+					try:
+						if "?" in question_answer_body_childrens[0]:
+							try:
+								question = "".join(question_answer_body_childrens)
+							except Exception as e:
+								print("question {} :".format(card_id), repr(e), question_answer_body)
+						else:
+							try:
+								subject = question_answer_body_childrens[0]
+							except Exception as e:
+								# print("Subject {} :".format(card_id), repr(e), question_answer_body_childrens)
+								pass
+
+							try:
+								question = "".join(question_answer_body_childrens[1:])
+							except Exception as e:
+								print("question {} :".format(card_id), repr(e), question_answer_body)
+					except:
+						pass
+						
+				try:
+					answers = list(answer_body.stripped_strings)
+				except:
+					pass
+
+			else:
+				print(card_id)
+
+		#==============MAKE DATAFRAME============#
+		anki_item.update({"number" : card_id})
+		anki_item.update({"subject" : subject})
+		anki_item.update({"question" : question})
+
+		try: anki_item.update({"answer1" : answers[0]})
+		except: anki_item.update({"answer1" : ""})
+
+		try: anki_item.update({"answer2" : answers[1]})
+		except: anki_item.update({"answer2" : ""})
+
+		try: anki_item.update({"answer3" : answers[2]})
+		except: anki_item.update({"answer3" : ""})
+
+		try: anki_item.update({"answer4" : answers[3]})
+		except: anki_item.update({"answer4" : ""})
+
+		try: anki_item.update({"answer5" : answers[4]})
+		except: anki_item.update({"answer5" : ""})
+
+		anki_item.update({"image" : image})
+		anki_item.update({"video" : video})
+		anki_item.update({"info" : info_text})
+		anki_item.update({"info_image" : info_image})
+		anki_item.update({"info_video" : info_video})
+
+		return anki_item
+
+
 	def upload_media_file(self, filename):
 		try:
+			#================TODO WHEN Deploy ===============
 			# filelink = self.client.upload(filepath="{}/{}".format(self.media_dir, filename))
 			# return filelink.url
+			# print("[Success] Uploaded Successfully", "'{}'".format(filename))
 			return filename
 		except Exception as e:
-			print(repr(e))
+			print("[Success] Uploaded Successfully due to", repr(e), filename)
 			return None
   
 def get_config(filename):
