@@ -3,3 +3,4 @@ anki-venv/
 media/
 __pycache__/
 dummies/
+data/

@@ -346,7 +346,8 @@ class AnkiConverter():
 					pass
 
 			else:
-				print(card_id)
+				pass
+				# print(card_id)
 
 		#==============MAKE DATAFRAME============#
 		anki_item.update({"number" : card_id})
@@ -380,12 +381,11 @@ class AnkiConverter():
 	def upload_media_file(self, filename):
 		try:
 			#================TODO WHEN Deploy ===============
-			# filelink = self.client.upload(filepath="{}/{}".format(self.media_dir, filename))
-			# return filelink.url
-			# print("[Success] Uploaded Successfully", "'{}'".format(filename))
-			return filename
+			filelink = self.client.upload(filepath="{}/{}".format(self.media_dir, filename))
+			print("[SUCCESS] Uploaded Successfully", "'{}'".format(filelink.url))
+			return filelink.url
 		except Exception as e:
-			print("[Success] Uploaded Successfully due to", repr(e), filename)
+			print("[FAIL] Uploaded Successfully due to", repr(e), filename)
 			return None
   
 def get_config(filename):
@@ -402,10 +402,11 @@ def main(argv):
 	inputfile  = ''
 	
 	#==========TEST==========#
-	is_test = True
 	config = get_config("config.json")
-
+	is_test = config.get('DEVELOPMENT')
+	
 	if is_test:
+		print(is_test)
 		filestack_api_key = config.get('FILESTACK_TEST_API_KEY')
 	else:
 		filestack_api_key = config.get('FILESTACK_API_KEY')

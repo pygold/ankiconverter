@@ -1,4 +1,5 @@
 {
     "FILESTACK_API_KEY" : "Arbup9XXRH2BzUDrBtmdKz",
-    "FILESTACK_TEST_API_KEY": "ACbJdInFsTSivaCmZk84tz"
+    "FILESTACK_TEST_API_KEY": "ACbJdInFsTSivaCmZk84tz",
+    "DEVELOPMENT" : false
 }
